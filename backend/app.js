@@ -15,6 +15,12 @@ app.get("/", (req, res) => {
 	res.send("Server is running!");
 });
 
-const PORT = process.env.PORT || 8080;
+(async () => {
+	const authRouter = (await import("./routes/auth.js")).router;
 
-app.listen(PORT, console.log(`This app listening at http://localhost:${PORT}`));
+	app.use("/", authRouter);
+
+	const PORT = process.env.PORT || 8080;
+
+	app.listen(PORT, console.log(`This app listening at http://localhost:${PORT}`));
+})();
