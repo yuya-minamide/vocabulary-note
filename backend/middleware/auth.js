@@ -1,5 +1,5 @@
 import { verifyToken } from "../util/jwtUtil.js";
-import User from "../models/User.js";
+import { User } from "../models/User.js";
 
 async function authentication(req, res, next) {
 	const { token } = req.headers;

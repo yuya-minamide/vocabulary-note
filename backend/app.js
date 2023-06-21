@@ -17,8 +17,9 @@ app.get("/", (req, res) => {
 
 (async () => {
 	const authRouter = (await import("./routes/auth.js")).router;
+	const wordRouter = (await import("./routes/word.js")).router;
 
-	app.use("/", authRouter);
+	app.use("/", authRouter, wordRouter);
 
 	const PORT = process.env.PORT || 8080;
 
