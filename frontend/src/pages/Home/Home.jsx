@@ -1,10 +1,10 @@
-import { Footer, Header } from "../../components";
+import { Footer, Header, HomeContents } from "../../components";
 
 export function Home() {
 	return (
 		<div>
 			<Header />
-			Home
+			<HomeContents />
 			<Footer />
 		</div>
 	);
