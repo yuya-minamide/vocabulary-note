@@ -1,4 +1,4 @@
-import { HomeAddWord } from "../../index";
+import { HomeAddWord, HomeWordList } from "../../index";
 import { useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
 import { AddButton, HomeContainer } from "../../../styles/components/pages/Home/HomeContentsStyle";
@@ -26,6 +26,7 @@ export function HomeContents() {
 				<AiOutlineUpload onClick={handleAddButtonClick} />
 			</AddButton>
 			{showAddWord && <HomeAddWord onClose={handleCloseClick} onSave={handleSaveClick} />}
+			<HomeWordList />
 		</HomeContainer>
 	);
 }
