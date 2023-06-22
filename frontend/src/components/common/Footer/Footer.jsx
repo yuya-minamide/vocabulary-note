@@ -1,3 +1,9 @@
+import { FooterContainer } from "../../../styles/components/common/Footer/FooterStyle";
+
 export function Footer() {
-	return <div>Footer</div>;
+	return (
+		<FooterContainer>
+			<p>©︎2023 All Right Reserved. Vocabulary note</p>
+		</FooterContainer>
+	);
 }
