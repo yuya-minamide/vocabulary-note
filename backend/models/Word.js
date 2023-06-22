@@ -19,6 +19,10 @@ const WordSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	archive: {
+		type: Boolean,
+		default: false,
+	},
 	date: {
 		type: Date,
 		default: Date.now,
