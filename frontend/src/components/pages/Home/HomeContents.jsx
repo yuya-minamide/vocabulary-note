@@ -1,4 +1,4 @@
-import { HomeAddWord, HomeWordList } from "../../index";
+import { HomeAddWord, HomeWordList, Loading, NoWord } from "../../index";
 import { useEffect, useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -8,11 +8,12 @@ export function HomeContents() {
 	const userData = useSelector((state) => state.user);
 	const userId = userData._id;
 	const [showAddWord, setShowAddWord] = useState(false);
-	//const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
 	const [words, setWords] = useState([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setIsLoading(true);
 			const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/getword`);
 			const resData = await response.json();
 
@@ -22,6 +23,8 @@ export function HomeContents() {
 			} else {
 				setWords([]);
 			}
+
+			setIsLoading(false);
 		};
 		fetchData();
 	}, [userId]);
@@ -46,7 +49,7 @@ export function HomeContents() {
 				<AiOutlineUpload onClick={handleAddButtonClick} />
 			</AddButton>
 			{showAddWord && <HomeAddWord onClose={handleCloseClick} onSave={handleSaveClick} />}
-			<HomeWordList words={words} />
+			{isLoading ? <Loading /> : words.length ? <HomeWordList words={words} /> : <NoWord />}
 		</HomeContainer>
 	);
 }

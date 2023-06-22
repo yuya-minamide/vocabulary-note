@@ -3,6 +3,8 @@
  */
 export { Header } from "./common/Header/Header";
 export { Footer } from "./common/Footer/Footer";
+export { Loading } from "./common/Loading/Loading";
+export { NoWord } from "./common/NoWord/NoWord";
 
 /**
  * Home
