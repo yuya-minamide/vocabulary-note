@@ -37,10 +37,18 @@ export function HomeContents() {
 		setShowAddWord(false);
 	};
 
-	const handleSaveClick = () => {
-		setTimeout(() => {
-			setShowAddWord(false);
-		}, 1000);
+	const handleSaveClick = async () => {
+		setShowAddWord(false);
+		// Refetch the updated word data after saving
+		const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/getword`);
+		const resData = await response.json();
+
+		if (userId) {
+			const userWords = resData.filter((word) => word.userid === userId);
+			setWords(userWords);
+		} else {
+			setWords([]);
+		}
 	};
 
 	return (
@@ -49,7 +57,7 @@ export function HomeContents() {
 				<AiOutlineUpload onClick={handleAddButtonClick} />
 			</AddButton>
 			{showAddWord && <HomeAddWord onClose={handleCloseClick} onSave={handleSaveClick} />}
-			{isLoading ? <Loading /> : words.length ? <HomeWordList words={words} /> : <NoWord />}
+			{isLoading ? <Loading /> : words.length ? <HomeWordList words={words} onUpdate={handleSaveClick} /> : <NoWord />}
 		</HomeContainer>
 	);
 }
