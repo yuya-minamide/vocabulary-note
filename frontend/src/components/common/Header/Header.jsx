@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsBook } from "react-icons/bs";
 import { SiTestcafe } from "react-icons/si";
-import { BsFillPersonFill } from "react-icons/bs";
+import { BsArchive, BsFillPersonFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../../redux/userSlice";
 import {
@@ -40,12 +40,17 @@ export function Header() {
 			<div>
 				<NavContainer>
 					<li>
-						<Link href="/">
+						<Link to="/">
 							<AiOutlineHome />
 						</Link>
 					</li>
 					<li>
-						<Link href="/">
+						<Link to="/archive">
+							<BsArchive />
+						</Link>
+					</li>
+					<li>
+						<Link to="/">
 							<SiTestcafe />
 						</Link>
 					</li>

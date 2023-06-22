@@ -6,3 +6,6 @@ export { Signup } from "./Signup/Signup";
 
 // Login
 export { Login } from "./Login/Login";
+
+// Archive
+export { Archive } from "./Archive/Archive";

@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { ListButton, WordListContainer } from "../../../styles/components/pages/Home/HomeWordListStyle";
 
-export function HomeWordList({ words, onUpdate }) {
+export function ArchiveWordList({ words, onUpdate }) {
 	const [selectedWord, setSelectedWord] = useState(null);
 
 	const handleEditClick = (word) => {
@@ -14,19 +14,19 @@ export function HomeWordList({ words, onUpdate }) {
 		setSelectedWord(null);
 	};
 
-	const handleArchiveClick = async (word) => {
+	const handleRemoveClick = async (word) => {
 		try {
-			await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/archiveword/${word._id}`, {
+			await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/removeword/${word._id}`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 				},
 			});
 			onUpdate();
-			toast.success("Word archived successfully");
+			toast.success("Word moved to list successfully");
 		} catch (error) {
 			console.error(error);
-			toast.error("Failed to archive word");
+			toast.error("Failed to move word to list");
 		}
 	};
 
@@ -37,7 +37,7 @@ export function HomeWordList({ words, onUpdate }) {
 					<div>{word.egword}</div>
 					<div>
 						<ListButton onClick={() => handleEditClick(word)}>Edit</ListButton>
-						<ListButton onClick={() => handleArchiveClick(word)}>Archive</ListButton>
+						<ListButton onClick={() => handleRemoveClick(word)}>Move to list</ListButton>
 					</div>
 				</WordListContainer>
 			))}

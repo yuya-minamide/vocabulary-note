@@ -1,7 +1,7 @@
 import React from "react";
 import { GlobalStyle } from "./GlobalStyle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Login, Signup } from "./pages/index";
+import { Archive, Home, Login, Signup } from "./pages/index";
 
 function App() {
 	return (
@@ -12,6 +12,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/login" element={<Login />} />
+					<Route path="/archive" element={<Archive />} />
 				</Routes>
 			</React.Fragment>
 		</Router>

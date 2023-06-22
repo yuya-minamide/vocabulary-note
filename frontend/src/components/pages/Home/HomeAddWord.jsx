@@ -55,6 +55,8 @@ export function HomeAddWord({ onClose, onSave }) {
 					userid: userId,
 				};
 			});
+
+			onSave();
 		} else {
 			toast.error("Please enter required fields");
 		}
@@ -72,7 +74,7 @@ export function HomeAddWord({ onClose, onSave }) {
 					<input type="text" name="jpword" value={data.jpword} onChange={handleOnChange} />
 					<p>✏️</p>
 					<textarea name="sentence" rows="4" value={data.sentence} onChange={handleOnChange}></textarea>
-					<SaveButton onClick={onSave}>Save</SaveButton>
+					<SaveButton onClick={handleSubmit}>Save</SaveButton>
 				</form>
 			</AddWordCard>
 		</AddWordContainer>

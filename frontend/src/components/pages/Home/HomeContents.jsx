@@ -18,7 +18,7 @@ export function HomeContents() {
 			const resData = await response.json();
 
 			if (userId) {
-				const userWords = resData.filter((word) => word.userid === userId);
+				const userWords = resData.filter((word) => word.userid === userId && !word.archive);
 				setWords(userWords);
 			} else {
 				setWords([]);
@@ -44,7 +44,7 @@ export function HomeContents() {
 		const resData = await response.json();
 
 		if (userId) {
-			const userWords = resData.filter((word) => word.userid === userId);
+			const userWords = resData.filter((word) => word.userid === userId && !word.archive);
 			setWords(userWords);
 		} else {
 			setWords([]);
