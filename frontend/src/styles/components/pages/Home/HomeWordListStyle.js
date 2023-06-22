@@ -10,6 +10,11 @@ export const WordListContainer = styled.div`
 	align-items: center;
 	font-weight: bold;
 	font-size: 1.2rem;
+
+	@media screen and (max-width: 520px) {
+		flex-direction: column;
+		font-size: 1rem;
+	}
 `;
 
 export const ListButton = styled.button`
@@ -22,5 +27,10 @@ export const ListButton = styled.button`
 
 	&:hover {
 		opacity: 0.9;
+	}
+
+	@media screen and (max-width: 520px) {
+		margin-top: 14px;
+		padding: 8px 16px;
 	}
 `;

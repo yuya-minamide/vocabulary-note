@@ -30,6 +30,22 @@ export function ArchiveWordList({ words, onUpdate }) {
 		}
 	};
 
+	const handleDeleteClick = async (word) => {
+		try {
+			await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/deleteword/${word._id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			onUpdate();
+			toast.success("Word deleted successfully");
+		} catch (error) {
+			console.error(error);
+			toast.error("Failed to delete word");
+		}
+	};
+
 	return (
 		<>
 			{words.map((word) => (
@@ -38,6 +54,7 @@ export function ArchiveWordList({ words, onUpdate }) {
 					<div>
 						<ListButton onClick={() => handleEditClick(word)}>Edit</ListButton>
 						<ListButton onClick={() => handleRemoveClick(word)}>Move to list</ListButton>
+						<ListButton onClick={() => handleDeleteClick(word)}>Delete</ListButton>
 					</div>
 				</WordListContainer>
 			))}
