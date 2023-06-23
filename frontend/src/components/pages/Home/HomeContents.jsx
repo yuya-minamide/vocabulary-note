@@ -1,4 +1,4 @@
-import { HomeAddWord, HomeWordList, Loading, NoWord } from "../../index";
+import { HomeAddWord, HomeSortWord, HomeWordList, Loading, NoWord } from "../../index";
 import { useEffect, useState } from "react";
 import { AiOutlineUpload } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -51,13 +51,29 @@ export function HomeContents() {
 		}
 	};
 
+	const [selectedLanguage, setSelectedLanguage] = useState("egword");
+	const handleJpToEnClick = () => {
+		setSelectedLanguage("egword");
+	};
+
+	const handleEnToJpClick = () => {
+		setSelectedLanguage("jpword");
+	};
+
 	return (
 		<HomeContainer>
+			<HomeSortWord words={words} setWords={setWords} handleJpToEnClick={handleJpToEnClick} handleEnToJpClick={handleEnToJpClick} />
 			<AddButton>
 				<AiOutlineUpload onClick={handleAddButtonClick} />
 			</AddButton>
 			{showAddWord && <HomeAddWord onClose={handleCloseClick} onSave={handleSaveClick} />}
-			{isLoading ? <Loading /> : words.length ? <HomeWordList words={words} onUpdate={handleSaveClick} /> : <NoWord />}
+			{isLoading ? (
+				<Loading />
+			) : words.length ? (
+				<HomeWordList words={words} onUpdate={handleSaveClick} selectedLanguage={selectedLanguage} />
+			) : (
+				<NoWord />
+			)}
 		</HomeContainer>
 	);
 }

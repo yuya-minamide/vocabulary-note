@@ -13,6 +13,7 @@ export { HomeContents } from "./pages/Home/HomeContents";
 export { HomeAddWord } from "./pages/Home/HomeAddWord";
 export { HomeWordList } from "./pages/Home/HomeWordList";
 export { HomeEditWord } from "./pages/Home/HomeEditWord";
+export { HomeSortWord } from "./pages/Home/HomeSortWord";
 
 /**
  * Archive

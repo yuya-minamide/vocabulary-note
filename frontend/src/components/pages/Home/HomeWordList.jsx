@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { ListButton, WordListContainer } from "../../../styles/components/pages/Home/HomeWordListStyle";
 
-export function HomeWordList({ words, onUpdate }) {
+export function HomeWordList({ words, onUpdate, selectedLanguage }) {
 	const [selectedWord, setSelectedWord] = useState(null);
 
 	const handleEditClick = (word) => {
@@ -34,7 +34,7 @@ export function HomeWordList({ words, onUpdate }) {
 		<>
 			{words.map((word) => (
 				<WordListContainer key={word._id}>
-					<div>{word.egword}</div>
+					<div>{selectedLanguage === "egword" ? word.egword : word.jpword}</div>
 					<div>
 						<ListButton onClick={() => handleEditClick(word)}>Edit</ListButton>
 						<ListButton onClick={() => handleArchiveClick(word)}>Archive</ListButton>
