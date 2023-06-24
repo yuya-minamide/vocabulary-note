@@ -15,6 +15,14 @@ export const WordListContainer = styled.div`
 		flex-direction: column;
 		font-size: 1rem;
 	}
+
+	color: var(--color-brown);
+	&.green {
+		color: var(--color-green);
+	}
+	&.red {
+		color: var(--color-red);
+	}
 `;
 
 export const ListButton = styled.button`

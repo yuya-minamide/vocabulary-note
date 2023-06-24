@@ -10,6 +10,10 @@ export function HomeContents() {
 	const [showAddWord, setShowAddWord] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [words, setWords] = useState([]);
+	const [selectedLanguage, setSelectedLanguage] = useState("egword");
+	const [showLikedWords, setShowLikedWords] = useState(false);
+	const [showDislikedWords, setShowDislikedWords] = useState(false);
+	const [showAllWords, setShowAllWords] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -51,7 +55,6 @@ export function HomeContents() {
 		}
 	};
 
-	const [selectedLanguage, setSelectedLanguage] = useState("egword");
 	const handleJpToEnClick = () => {
 		setSelectedLanguage("egword");
 	};
@@ -60,9 +63,36 @@ export function HomeContents() {
 		setSelectedLanguage("jpword");
 	};
 
+	const handleLikeClick = () => {
+		setShowLikedWords(true);
+		setShowDislikedWords(false);
+		setShowAllWords(false);
+	};
+
+	const handleDislikeClick = () => {
+		setShowLikedWords(false);
+		setShowDislikedWords(true);
+		setShowAllWords(false);
+	};
+
+	const handleAllClick = () => {
+		setShowLikedWords(false);
+		setShowDislikedWords(false);
+		setShowAllWords(true);
+	};
+
 	return (
 		<HomeContainer>
-			<HomeSortWord words={words} setWords={setWords} handleJpToEnClick={handleJpToEnClick} handleEnToJpClick={handleEnToJpClick} />
+			<HomeSortWord
+				words={words}
+				setWords={setWords}
+				handleSaveClick={handleSaveClick}
+				handleJpToEnClick={handleJpToEnClick}
+				handleEnToJpClick={handleEnToJpClick}
+				handleLikeClick={handleLikeClick}
+				handleDislikeClick={handleDislikeClick}
+				handleAllClick={handleAllClick}
+			/>
 			<AddButton>
 				<AiOutlineUpload onClick={handleAddButtonClick} />
 			</AddButton>
@@ -70,7 +100,14 @@ export function HomeContents() {
 			{isLoading ? (
 				<Loading />
 			) : words.length ? (
-				<HomeWordList words={words} onUpdate={handleSaveClick} selectedLanguage={selectedLanguage} />
+				<HomeWordList
+					words={words}
+					onUpdate={handleSaveClick}
+					selectedLanguage={selectedLanguage}
+					showLikedWords={showLikedWords}
+					showDislikedWords={showDislikedWords}
+					showAllWords={showAllWords}
+				/>
 			) : (
 				<NoWord />
 			)}

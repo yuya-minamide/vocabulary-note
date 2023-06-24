@@ -5,6 +5,7 @@ export const SortContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	gap: 2rem;
+	margin: 60px 0 40px 0;
 
 	button {
 		text-decoration: underline;
@@ -15,9 +16,10 @@ export const SortContainer = styled.div`
 	@media (max-width: 520px) {
 		flex-wrap: wrap;
 		gap: 1rem;
+		margin: 30px 0 20px 0;
 
 		button:nth-child(5) {
-			flex-basis: 90%;
+			flex-basis: 100%;
 		}
 	}
 `;

@@ -1,19 +1,22 @@
-import { useState } from "react";
 import { SortContainer } from "../../../styles/components/pages/Home/HomeSortWordStyle";
 
-export function HomeSortWord({ words, setWords, handleJpToEnClick, handleEnToJpClick }) {
-	const [isReversed, setIsReversed] = useState(false);
-
+export function HomeSortWord({
+	words,
+	setWords,
+	handleJpToEnClick,
+	handleEnToJpClick,
+	handleLikeClick,
+	handleDislikeClick,
+	handleAllClick,
+}) {
 	const handleNewClick = () => {
 		const newWordOrder = [...words].sort((a, b) => new Date(b.date) - new Date(a.date));
 		setWords(newWordOrder);
-		setIsReversed(true);
 	};
 
 	const handleOldClick = () => {
 		const oldWordOrder = [...words].sort((a, b) => new Date(a.date) - new Date(b.date));
 		setWords(oldWordOrder);
-		setIsReversed(false);
 	};
 
 	const handleShuffleClick = () => {
@@ -30,14 +33,11 @@ export function HomeSortWord({ words, setWords, handleJpToEnClick, handleEnToJpC
 	return (
 		<>
 			<SortContainer>
-				<button onClick={handleNewClick} disabled={isReversed}>
-					New
-				</button>
-				<button onClick={handleOldClick} disabled={!isReversed}>
-					Old
-				</button>
-				<button>Like</button>
-				<button>Dislike</button>
+				<button onClick={handleAllClick}>All</button>
+				<button onClick={handleNewClick}>New</button>
+				<button onClick={handleOldClick}>Old</button>
+				<button onClick={handleLikeClick}>Like</button>
+				<button onClick={handleDislikeClick}>Dislike</button>
 				<button onClick={handleShuffleClick}>Shuffle</button>
 				<button onClick={handleJpToEnClick}>🇯🇵→🇺🇸</button>
 				<button onClick={handleEnToJpClick}>🇺🇸→🇯🇵</button>

@@ -5,7 +5,7 @@ export const HomeContainer = styled.div`
 	text-align: center;
 `;
 export const AddButton = styled.div`
-	margin-top: 20px;
+	margin: 40px 0;
 
 	svg {
 		font-size: 2rem;
