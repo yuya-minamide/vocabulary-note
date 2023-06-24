@@ -25,3 +25,8 @@ export { ArchiveWordList } from "./pages/Archive/ArchiveWordList";
  * Exam select
  */
 export { ExamSelectContents } from "./pages/ExamSelect/ExamSelectContents";
+
+/**
+ * Exam start
+ */
+export { ExamStartContents } from "./pages/ExamStart/ExamStartContents";

@@ -12,3 +12,6 @@ export { Archive } from "./Archive/Archive";
 
 // Exam select
 export { ExamSelect } from "./ExamSelect/ExamSelect";
+
+// Exam start
+export { ExamStart } from "./ExamStart/ExamStart";

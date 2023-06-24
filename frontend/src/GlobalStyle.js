@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     --color-bg-white: #fff;
     --color-green: #008000;
     --color-brown: #3D3935;
-    --color-red: #FF0000;
+    --color-red: #de0000;
     
 
     --transition: all 400ms ease;
