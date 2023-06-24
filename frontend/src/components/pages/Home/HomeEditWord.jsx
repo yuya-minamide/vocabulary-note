@@ -4,26 +4,24 @@ import { GrClose } from "react-icons/gr";
 import { useSelector } from "react-redux";
 import { AddWordCard, AddWordContainer, SaveButton } from "../../../styles/components/pages/Home/HomeAddWordStyle";
 
-export function HomeAddWord({ onClose, onSave }) {
+export function HomeEditWord({ onClose, onSave, word }) {
 	const userData = useSelector((state) => state.user);
 	const userId = userData._id;
 
 	const [data, setData] = useState({
-		egword: "",
-		jpword: "",
-		sentence: "",
+		egword: word.egword,
+		jpword: word.jpword,
+		sentence: word.sentence,
 		userid: userId,
 	});
 
 	const handleOnChange = (e) => {
 		const { name, value } = e.target;
 
-		setData((preve) => {
-			return {
-				...preve,
-				[name]: value,
-			};
-		});
+		setData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}));
 	};
 
 	const handleSubmit = async (e) => {
@@ -31,15 +29,10 @@ export function HomeAddWord({ onClose, onSave }) {
 
 		const { egword, jpword, sentence } = data;
 		if (egword && jpword && sentence) {
-			if (!userId) {
-				toast.error("Please log in to save the word!");
-				return;
-			}
-
-			const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/addword`, {
-				method: "POST",
+			const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/editword/${word._id}`, {
+				method: "PUT",
 				headers: {
-					"content-type": "application/json",
+					"Content-Type": "application/json",
 				},
 				body: JSON.stringify(data),
 			});
@@ -47,26 +40,19 @@ export function HomeAddWord({ onClose, onSave }) {
 			const resData = await response.json();
 			resData.message ? toast.success(resData.message) : toast.error(resData.error);
 
-			setData(() => {
-				return {
-					egword: "",
-					jpword: "",
-					sentence: "",
-					userid: userId,
-				};
-			});
-
 			onSave();
+			onClose();
 		} else {
 			toast.error("Please enter required fields");
 		}
 	};
+
 	return (
 		<AddWordContainer>
 			<AddWordCard>
 				<Toaster position="top-center" />
 				<GrClose onClick={onClose} />
-				<h1>Add a word</h1>
+				<h1>Edit Word</h1>
 				<form onSubmit={handleSubmit}>
 					<p>🇺🇸</p>
 					<input type="text" name="egword" value={data.egword} onChange={handleOnChange} />
@@ -74,7 +60,7 @@ export function HomeAddWord({ onClose, onSave }) {
 					<input type="text" name="jpword" value={data.jpword} onChange={handleOnChange} />
 					<p>✏️</p>
 					<textarea name="sentence" rows="4" value={data.sentence} onChange={handleOnChange}></textarea>
-					<SaveButton onClick={handleSubmit}>Save</SaveButton>
+					<SaveButton type="submit">Save</SaveButton>
 				</form>
 			</AddWordCard>
 		</AddWordContainer>
