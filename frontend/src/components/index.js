@@ -30,3 +30,8 @@ export { ExamSelectContents } from "./pages/ExamSelect/ExamSelectContents";
  * Exam start
  */
 export { ExamStartContents } from "./pages/ExamStart/ExamStartContents";
+
+/**
+ * Exam
+ */
+export { ExamContents } from "./pages/Exam/ExamContents";

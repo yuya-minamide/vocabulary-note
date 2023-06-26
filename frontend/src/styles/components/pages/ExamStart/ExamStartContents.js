@@ -22,12 +22,12 @@ export const StartButtonContainer = styled.div`
 		padding: 0 10%;
 	}
 
-	a {
+	button {
 		display: inline-block;
 		margin: 10px;
-		padding: 70px 120px;
+		padding: 50px 100px;
 		font-size: 24px;
-		width: 45%;
+		width: 35%;
 		background-color: var(--color-bg-green);
 		color: var(--color-bg-white);
 		border-radius: 10px;

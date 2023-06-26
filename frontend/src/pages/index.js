@@ -15,3 +15,6 @@ export { ExamSelect } from "./ExamSelect/ExamSelect";
 
 // Exam start
 export { ExamStart } from "./ExamStart/ExamStart";
+
+// Exam
+export { Exam } from "./Exam/Exam";
