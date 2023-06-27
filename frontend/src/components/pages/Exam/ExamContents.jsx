@@ -3,12 +3,16 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { goToNextQuestion, selectAnswer } from "../../../redux/examSlice";
-import styled from "styled-components";
-
-const ExamContainer = styled.div`
-	margin-top: 130px;
-	text-align: center;
-`;
+import {
+	AnswerButton,
+	AnswerButtonContainer,
+	ContentsContainer,
+	ExamContainer,
+	QuestionNumber,
+	Sentence,
+	Title,
+	Word,
+} from "../../../styles/components/pages/Exam/ExamContentsStyle";
 
 export function ExamContents() {
 	const dispatch = useDispatch();
@@ -100,16 +104,16 @@ export function ExamContents() {
 			};
 
 			try {
-				// const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/answer/${wordId}`, {
-				// 	method: "PUT",
-				// 	headers: {
-				// 		"Content-Type": "application/json",
-				// 	},
-				// 	body: JSON.stringify(updateData),
-				// });
+				const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/answer/${wordId}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(updateData),
+				});
 
-				// const updatedWord = await response.json();
-				// console.log("Word updated:", updatedWord);
+				const updatedWord = await response.json();
+				console.log("Word updated:", updatedWord);
 
 				dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
 				setRevealAnswer(false);
@@ -134,16 +138,16 @@ export function ExamContents() {
 			};
 
 			try {
-				// const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/answer/${wordId}`, {
-				// 	method: "PUT",
-				// 	headers: {
-				// 		"Content-Type": "application/json",
-				// 	},
-				// 	body: JSON.stringify(updateData),
-				// });
+				const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/answer/${wordId}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(updateData),
+				});
 
-				// const updatedWord = await response.json();
-				// console.log("Word updated:", updatedWord);
+				const updatedWord = await response.json();
+				console.log("Word updated:", updatedWord);
 
 				dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
 				setRevealAnswer(false);
@@ -160,64 +164,35 @@ export function ExamContents() {
 				<Loading />
 			) : (
 				<div>
-					<h1>{capitalizedButtonName}</h1>
-					<h2>
+					<Title>{capitalizedButtonName}</Title>
+					<QuestionNumber>
 						{currentQuestionNumber + 1} / {totalQuestionNumber}
-					</h2>
-					<div>
+					</QuestionNumber>
+					<ContentsContainer>
 						{examCategory === "random" ? (
 							<>
-								<h2>
+								<Word>
 									{revealAnswer ? randomWord[currentQuestionNumber]?.jpword : randomWord[currentQuestionNumber]?.egword}
-								</h2>
-								{revealAnswer && <p>{randomWord[currentQuestionNumber]?.sentence}</p>}
+								</Word>
+								{revealAnswer && <Sentence>{randomWord[currentQuestionNumber]?.sentence}</Sentence>}
 							</>
 						) : (
 							<>
-								<h2>
+								<Word>
 									{revealAnswer ? dislikeWord[currentQuestionNumber]?.jpword : dislikeWord[currentQuestionNumber]?.egword}
-								</h2>
-								{revealAnswer && <p>{dislikeWord[currentQuestionNumber]?.sentence}</p>}
+								</Word>
+								{revealAnswer && <Sentence>{dislikeWord[currentQuestionNumber]?.sentence}</Sentence>}
 							</>
 						)}
 
-						<button onClick={handleAnswer}>Answer</button>
-						<div>
-							<button onClick={() => handleNextQuestion("iKnow")}>I know</button>
+						<AnswerButton onClick={handleAnswer}>Answer</AnswerButton>
+						<AnswerButtonContainer>
+							<button onClick={() => handleNextQuestion("iKnow")}>I know well</button>
 							<button onClick={() => handleNextQuestion("iDoNotKnow")}>I don't know</button>
-						</div>
-					</div>
+						</AnswerButtonContainer>
+					</ContentsContainer>
 				</div>
 			)}
 		</ExamContainer>
 	);
 }
-
-// let answer;
-// const handleNextQuestion = (buttonType) => {
-// 	if (currentAnswers === totalQuestionNumber - 1) {
-// 		if (buttonType === "iKnow") {
-// 			answer = "I know";
-// 		} else if (buttonType === "iDoNotKnow") {
-// 			answer = "I don't know";
-// 		}
-// 		console.log(answer);
-// 		dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
-// 		setRevealAnswer(false);
-// 		navigate(
-// 			`/result?randomWord=${encodeURIComponent(JSON.stringify(randomWord))}&dislikeWord=${encodeURIComponent(
-// 				JSON.stringify(dislikeWord)
-// 			)}&examCategory=${encodeURIComponent(examCategory)}`
-// 		);
-// 	} else {
-// 		if (buttonType === "iKnow") {
-// 			answer = "I know";
-// 		} else if (buttonType === "iDoNotKnow") {
-// 			answer = "I don't know";
-// 		}
-// 		console.log(answer);
-// 		dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
-// 		dispatch(goToNextQuestion());
-// 		setRevealAnswer(false);
-// 	}
-// };

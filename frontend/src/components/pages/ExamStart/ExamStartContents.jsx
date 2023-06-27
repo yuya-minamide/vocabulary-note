@@ -7,7 +7,7 @@ import {
 	ExplainContainer,
 	StartButtonContainer,
 	Title,
-} from "../../../styles/components/pages/ExamStart/ExamStartContents";
+} from "../../../styles/components/pages/ExamStart/ExamStartContentsStyle";
 
 export function ExamStartContents() {
 	const { examName } = useParams();

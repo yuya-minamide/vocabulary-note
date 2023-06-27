@@ -1,19 +1,21 @@
+import { ListContainer, WordContainer } from "../../../styles/components/pages/Result/ResultWordListStyle";
+
 export function ResultWordList({ words, examData }) {
 	return (
-		<div>
+		<>
 			{words.map((word, index) => (
-				<div key={index} style={{ color: examData[index] === "I know" ? "green" : "red" }}>
-					<div>
+				<ListContainer key={index} style={{ color: examData[index] === "I know" ? "green" : "red" }}>
+					<WordContainer>
 						<p>{word.egword}</p>
 						<p>{word.jpword}</p>
-					</div>
+					</WordContainer>
 					<div>
 						<p>
 							Past correct tate: {word.correcttime} / {word.answertime}
 						</p>
 					</div>
-				</div>
+				</ListContainer>
 			))}
-		</div>
+		</>
 	);
 }

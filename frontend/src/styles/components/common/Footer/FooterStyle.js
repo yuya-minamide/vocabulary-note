@@ -6,6 +6,10 @@ export const FooterContainer = styled.div`
 	border-top: solid 1px #b7b7b7;
 	padding: 26px 0;
 
+	@media (max-width: 520px) {
+		margin-top: 40px;
+	}
+
 	p {
 		font-size: 0.8rem;
 
