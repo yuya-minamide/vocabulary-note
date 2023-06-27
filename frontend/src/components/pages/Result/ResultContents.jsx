@@ -9,21 +9,12 @@ export function ResultContents() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const queryParams = new URLSearchParams(location.search);
-	const randomWordParam = queryParams.get("randomWord");
-	const dislikeWordParam = queryParams.get("dislikeWord");
-	const examCategoryParam = queryParams.get("examCategory");
-	const randomWord = randomWordParam ? JSON.parse(decodeURIComponent(randomWordParam)) : [];
-	const dislikeWord = dislikeWordParam ? JSON.parse(decodeURIComponent(dislikeWordParam)) : [];
-	const examCategory = examCategoryParam ? decodeURIComponent(examCategoryParam) : "";
+	const examWordParam = queryParams.get("examWord");
+	const examWord = examWordParam ? JSON.parse(decodeURIComponent(examWordParam)) : [];
 	const examData = useSelector((state) => state.exam.selectedAnswers);
 	const correctNumber = examData.filter((answer) => answer === "I know").length;
 
-	let selectedWords = [];
-	if (examCategory === "random") {
-		selectedWords = randomWord;
-	} else if (examCategory === "dislike") {
-		selectedWords = dislikeWord;
-	}
+	const selectedWords = examWord;
 
 	const handleBackToListClick = () => {
 		dispatch(clearAll());

@@ -1,4 +1,3 @@
-import { Loading } from "../../index";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +14,7 @@ import {
 	Word,
 } from "../../../styles/components/pages/Exam/ExamContentsStyle";
 
-export function ExamContents() {
+export function ExamContents({ examWord }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { examName } = useParams();
@@ -24,79 +23,22 @@ export function ExamContents() {
 	const totalQuestionNumber = Number(examName.slice(-2));
 	const currentQuestionNumber = useSelector((state) => state.exam.currentQuestionIndex);
 	const currentAnswers = useSelector((state) => state.exam.selectedAnswers).length;
-	const userData = useSelector((state) => state.user);
-	const userId = userData._id;
-	const [isLoading, setIsLoading] = useState(true);
-	const [words, setWords] = useState([]);
-	const [randomWord, setRandomWord] = useState([]);
-	const [dislikeWord, setDislikeWord] = useState([]);
 	const [revealAnswer, setRevealAnswer] = useState(false);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true);
-			const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/getword`);
-			const resData = await response.json();
-
-			if (userId) {
-				const userWords = resData.filter((word) => word.userid === userId && !word.archive);
-				setWords(userWords);
-			} else {
-				setWords([]);
-			}
-
-			setIsLoading(false);
-		};
-		fetchData();
-	}, [userId]);
-
-	useEffect(() => {
-		if (words.length > 0) {
-			const randomWords = [];
-
-			for (let i = 0; i < totalQuestionNumber; i++) {
-				const randomIndex = Math.floor(Math.random() * words.length);
-				randomWords.push(words[randomIndex]);
-			}
-
-			setRandomWord(randomWords);
-		} else {
+		if (examWord.length === 0) {
 			navigate("/");
 			toast.error("Please add words");
 		}
-	}, [words, totalQuestionNumber]);
-
-	useEffect(() => {
-		if (words.length > 0) {
-			const dislikeWords = [];
-			const correctRate = words.correcttime / words.answertime;
-
-			for (let i = 0; i < totalQuestionNumber; i++) {
-				if (correctRate < 0.7 && words.answertime > 0) dislikeWords.push(words[i]);
-			}
-
-			setDislikeWord(dislikeWords);
-		} else {
-			navigate("/");
-			toast.error("Please add words");
-		}
-	}, [words, totalQuestionNumber]);
+	}, [examWord, navigate]);
 
 	const handleAnswer = () => {
 		setRevealAnswer(true);
 	};
 
+	const wordId = examWord[currentQuestionNumber] ? examWord[currentQuestionNumber]._id : "";
+	const word = examWord[currentQuestionNumber];
 	let answer;
-	const wordId =
-		examCategory === "random"
-			? randomWord[currentQuestionNumber]
-				? randomWord[currentQuestionNumber]._id
-				: ""
-			: dislikeWord[currentQuestionNumber]
-			? dislikeWord[currentQuestionNumber]._id
-			: "";
-	const word = examCategory === "random" ? randomWord[currentQuestionNumber] : dislikeWord[currentQuestionNumber];
-
 	const handleNextQuestion = async (buttonType) => {
 		if (currentAnswers === totalQuestionNumber - 1) {
 			if (buttonType === "iKnow") {
@@ -125,9 +67,7 @@ export function ExamContents() {
 				dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
 				setRevealAnswer(false);
 				navigate(
-					`/result?randomWord=${encodeURIComponent(JSON.stringify(randomWord))}&dislikeWord=${encodeURIComponent(
-						JSON.stringify(dislikeWord)
-					)}&examCategory=${encodeURIComponent(examCategory)}`
+					`/result?examWord=${encodeURIComponent(JSON.stringify(examWord))}&examCategory=${encodeURIComponent(examCategory)}`
 				);
 			} catch (error) {
 				console.error("Error updating word:", error);
@@ -168,39 +108,24 @@ export function ExamContents() {
 	return (
 		<ExamContainer>
 			<Toaster position="top-center" />
-			{isLoading ? (
-				<Loading />
-			) : (
-				<div>
-					<Title>{capitalizedButtonName}</Title>
-					<QuestionNumber>
-						{currentQuestionNumber + 1} / {totalQuestionNumber}
-					</QuestionNumber>
-					<ContentsContainer>
-						{examCategory === "random" ? (
-							<>
-								<Word>
-									{revealAnswer ? randomWord[currentQuestionNumber]?.jpword : randomWord[currentQuestionNumber]?.egword}
-								</Word>
-								{revealAnswer && <Sentence>{randomWord[currentQuestionNumber]?.sentence}</Sentence>}
-							</>
-						) : (
-							<>
-								<Word>
-									{revealAnswer ? dislikeWord[currentQuestionNumber]?.jpword : dislikeWord[currentQuestionNumber]?.egword}
-								</Word>
-								{revealAnswer && <Sentence>{dislikeWord[currentQuestionNumber]?.sentence}</Sentence>}
-							</>
-						)}
-
-						<AnswerButton onClick={handleAnswer}>Answer</AnswerButton>
-						<AnswerButtonContainer>
-							<button onClick={() => handleNextQuestion("iKnow")}>I know well</button>
-							<button onClick={() => handleNextQuestion("iDoNotKnow")}>I don't know</button>
-						</AnswerButtonContainer>
-					</ContentsContainer>
-				</div>
-			)}
+			<div>
+				<Title>{capitalizedButtonName}</Title>
+				<QuestionNumber>
+					{currentQuestionNumber + 1} / {totalQuestionNumber}
+				</QuestionNumber>
+				<ContentsContainer>
+					<div>
+						<Word>{revealAnswer ? examWord[currentQuestionNumber]?.jpword : examWord[currentQuestionNumber]?.egword}</Word>
+						{revealAnswer && <Sentence>{examWord[currentQuestionNumber]?.sentence}</Sentence>}
+					</div>
+					<AnswerButton onClick={handleAnswer}>Answer</AnswerButton>
+					<AnswerButtonContainer>
+						<button onClick={() => handleNextQuestion("iKnow")}>I know well</button>
+						<button onClick={() => handleNextQuestion("iDoNotKnow")}>I don't know</button>
+					</AnswerButtonContainer>
+				</ContentsContainer>
+			</div>
+			)
 		</ExamContainer>
 	);
 }
