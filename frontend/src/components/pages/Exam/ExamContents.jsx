@@ -1,5 +1,6 @@
 import { Loading } from "../../index";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { goToNextQuestion, selectAnswer } from "../../../redux/examSlice";
@@ -59,6 +60,9 @@ export function ExamContents() {
 			}
 
 			setRandomWord(randomWords);
+		} else {
+			navigate("/");
+			toast.error("Please add words");
 		}
 	}, [words, totalQuestionNumber]);
 
@@ -72,6 +76,9 @@ export function ExamContents() {
 			}
 
 			setDislikeWord(dislikeWords);
+		} else {
+			navigate("/");
+			toast.error("Please add words");
 		}
 	}, [words, totalQuestionNumber]);
 
@@ -160,6 +167,7 @@ export function ExamContents() {
 
 	return (
 		<ExamContainer>
+			<Toaster position="top-center" />
 			{isLoading ? (
 				<Loading />
 			) : (
