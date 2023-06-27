@@ -25,7 +25,7 @@ export const StartButtonContainer = styled.div`
 	button {
 		display: inline-block;
 		margin: 10px;
-		padding: 50px 100px;
+		padding: 50px 70px;
 		font-size: 24px;
 		width: 35%;
 		background-color: var(--color-bg-green);

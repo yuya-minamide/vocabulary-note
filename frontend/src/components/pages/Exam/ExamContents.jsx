@@ -125,7 +125,6 @@ export function ExamContents({ examWord }) {
 					</AnswerButtonContainer>
 				</ContentsContainer>
 			</div>
-			)
 		</ExamContainer>
 	);
 }

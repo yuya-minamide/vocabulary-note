@@ -25,12 +25,16 @@ export const SelectButtonContainer = styled.div`
 	a {
 		display: inline-block;
 		margin: 10px;
-		padding: 70px 120px;
+		padding: 50px 70px;
 		font-size: 24px;
 		width: 45%;
 		background-color: var(--color-bg-green);
 		color: var(--color-bg-white);
 		border-radius: 10px;
+
+		&:hover {
+			opacity: 0.9;
+		}
 
 		@media (max-width: 960px) {
 			padding: 40px 70px;
@@ -41,10 +45,6 @@ export const SelectButtonContainer = styled.div`
 				width: 100%;
 				margin: 5px;
 			}
-		}
-
-		&:hover {
-			opacity: 0.9;
 		}
 	}
 `;
