@@ -50,7 +50,7 @@ export function Header() {
 						</Link>
 					</li>
 					<li>
-						<Link to="/">
+						<Link to="/examselect">
 							<SiTestcafe />
 						</Link>
 					</li>

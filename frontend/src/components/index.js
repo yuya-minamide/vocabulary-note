@@ -20,3 +20,24 @@ export { HomeSortWord } from "./pages/Home/HomeSortWord";
  */
 export { ArchiveContents } from "./pages/Archive/ArchiveContents";
 export { ArchiveWordList } from "./pages/Archive/ArchiveWordList";
+
+/**
+ * Exam select
+ */
+export { ExamSelectContents } from "./pages/ExamSelect/ExamSelectContents";
+
+/**
+ * Exam start
+ */
+export { ExamStartContents } from "./pages/ExamStart/ExamStartContents";
+
+/**
+ * Exam
+ */
+export { ExamContents } from "./pages/Exam/ExamContents";
+
+/**
+ * Result
+ */
+export { ResultContents } from "./pages/Result/ResultContents";
+export { ResultWordList } from "./pages/Result/ResultWordList";
