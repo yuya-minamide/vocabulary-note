@@ -1,8 +1,8 @@
 import { Loading } from "../../index";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { goToNextQuestion } from "../../../redux/examSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { goToNextQuestion, selectAnswer } from "../../../redux/examSlice";
 import styled from "styled-components";
 
 const ExamContainer = styled.div`
@@ -12,11 +12,13 @@ const ExamContainer = styled.div`
 
 export function ExamContents() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { examName } = useParams();
 	const capitalizedButtonName = examName.charAt(0).toUpperCase() + examName.slice(1);
 	const examCategory = examName.slice(0, -2);
-	const totalQuestionNumber = examName.slice(-2);
+	const totalQuestionNumber = Number(examName.slice(-2));
 	const currentQuestionNumber = useSelector((state) => state.exam.currentQuestionIndex);
+	const currentAnswers = useSelector((state) => state.exam.selectedAnswers).length;
 	const userData = useSelector((state) => state.user);
 	const userId = userData._id;
 	const [isLoading, setIsLoading] = useState(true);
@@ -73,9 +75,83 @@ export function ExamContents() {
 		setRevealAnswer(true);
 	};
 
-	const handleNextQuestion = () => {
-		dispatch(goToNextQuestion());
-		setRevealAnswer(false);
+	let answer;
+	const wordId =
+		examCategory === "random"
+			? randomWord[currentQuestionNumber]
+				? randomWord[currentQuestionNumber]._id
+				: ""
+			: dislikeWord[currentQuestionNumber]
+			? dislikeWord[currentQuestionNumber]._id
+			: "";
+	const word = examCategory === "random" ? randomWord[currentQuestionNumber] : dislikeWord[currentQuestionNumber];
+
+	const handleNextQuestion = async (buttonType) => {
+		if (currentAnswers === totalQuestionNumber - 1) {
+			if (buttonType === "iKnow") {
+				answer = "I know";
+			} else if (buttonType === "iDoNotKnow") {
+				answer = "I don't know";
+			}
+
+			const updateData = {
+				correcttime: answer === "I know" ? word.correcttime + 1 : word.correcttime,
+				answertime: word.answertime + 1,
+			};
+
+			try {
+				// const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/answer/${wordId}`, {
+				// 	method: "PUT",
+				// 	headers: {
+				// 		"Content-Type": "application/json",
+				// 	},
+				// 	body: JSON.stringify(updateData),
+				// });
+
+				// const updatedWord = await response.json();
+				// console.log("Word updated:", updatedWord);
+
+				dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
+				setRevealAnswer(false);
+				navigate(
+					`/result?randomWord=${encodeURIComponent(JSON.stringify(randomWord))}&dislikeWord=${encodeURIComponent(
+						JSON.stringify(dislikeWord)
+					)}&examCategory=${encodeURIComponent(examCategory)}`
+				);
+			} catch (error) {
+				console.error("Error updating word:", error);
+			}
+		} else {
+			if (buttonType === "iKnow") {
+				answer = "I know";
+			} else if (buttonType === "iDoNotKnow") {
+				answer = "I don't know";
+			}
+
+			const updateData = {
+				correcttime: answer === "I know" ? word.correcttime + 1 : word.correcttime,
+				answertime: word.answertime + 1,
+			};
+
+			try {
+				// const response = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/answer/${wordId}`, {
+				// 	method: "PUT",
+				// 	headers: {
+				// 		"Content-Type": "application/json",
+				// 	},
+				// 	body: JSON.stringify(updateData),
+				// });
+
+				// const updatedWord = await response.json();
+				// console.log("Word updated:", updatedWord);
+
+				dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
+				setRevealAnswer(false);
+				dispatch(goToNextQuestion());
+			} catch (error) {
+				console.error("Error updating word:", error);
+			}
+		}
 	};
 
 	return (
@@ -107,8 +183,8 @@ export function ExamContents() {
 
 						<button onClick={handleAnswer}>Answer</button>
 						<div>
-							<button onClick={handleNextQuestion}>I know</button>
-							<button onClick={handleNextQuestion}>I don't know</button>
+							<button onClick={() => handleNextQuestion("iKnow")}>I know</button>
+							<button onClick={() => handleNextQuestion("iDoNotKnow")}>I don't know</button>
 						</div>
 					</div>
 				</div>
@@ -116,3 +192,32 @@ export function ExamContents() {
 		</ExamContainer>
 	);
 }
+
+// let answer;
+// const handleNextQuestion = (buttonType) => {
+// 	if (currentAnswers === totalQuestionNumber - 1) {
+// 		if (buttonType === "iKnow") {
+// 			answer = "I know";
+// 		} else if (buttonType === "iDoNotKnow") {
+// 			answer = "I don't know";
+// 		}
+// 		console.log(answer);
+// 		dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
+// 		setRevealAnswer(false);
+// 		navigate(
+// 			`/result?randomWord=${encodeURIComponent(JSON.stringify(randomWord))}&dislikeWord=${encodeURIComponent(
+// 				JSON.stringify(dislikeWord)
+// 			)}&examCategory=${encodeURIComponent(examCategory)}`
+// 		);
+// 	} else {
+// 		if (buttonType === "iKnow") {
+// 			answer = "I know";
+// 		} else if (buttonType === "iDoNotKnow") {
+// 			answer = "I don't know";
+// 		}
+// 		console.log(answer);
+// 		dispatch(selectAnswer({ questionIndex: currentQuestionNumber, answer }));
+// 		dispatch(goToNextQuestion());
+// 		setRevealAnswer(false);
+// 	}
+// };

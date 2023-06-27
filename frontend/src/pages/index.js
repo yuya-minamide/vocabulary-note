@@ -18,3 +18,6 @@ export { ExamStart } from "./ExamStart/ExamStart";
 
 // Exam
 export { Exam } from "./Exam/Exam";
+
+// Result
+export { Result } from "./Result/Result";

@@ -1,7 +1,7 @@
 import React from "react";
 import { GlobalStyle } from "./GlobalStyle";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Archive, Exam, ExamSelect, ExamStart, Home, Login, Signup } from "./pages/index";
+import { Archive, Exam, ExamSelect, ExamStart, Home, Login, Result, Signup } from "./pages/index";
 
 function App() {
 	return (
@@ -16,6 +16,7 @@ function App() {
 					<Route path="/examselect" element={<ExamSelect />} />
 					<Route path="/examstart/:examName" element={<ExamStart />} />
 					<Route path="/exam/:examName" element={<Exam />} />
+					<Route path="/result" element={<Result />} />
 				</Routes>
 			</React.Fragment>
 		</Router>

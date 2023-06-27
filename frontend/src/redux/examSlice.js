@@ -16,8 +16,12 @@ const examSlice = createSlice({
 			const { questionIndex, answer } = action.payload;
 			state.selectedAnswers[questionIndex] = answer;
 		},
+		clearAll: (state) => {
+			state.currentQuestionIndex = 0;
+			state.selectedAnswers = [];
+		},
 	},
 });
 
-export const { goToNextQuestion, selectAnswer } = examSlice.actions;
+export const { goToNextQuestion, selectAnswer, clearAll } = examSlice.actions;
 export default examSlice.reducer;

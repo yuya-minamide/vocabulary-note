@@ -35,3 +35,9 @@ export { ExamStartContents } from "./pages/ExamStart/ExamStartContents";
  * Exam
  */
 export { ExamContents } from "./pages/Exam/ExamContents";
+
+/**
+ * Result
+ */
+export { ResultContents } from "./pages/Result/ResultContents";
+export { ResultWordList } from "./pages/Result/ResultWordList";
