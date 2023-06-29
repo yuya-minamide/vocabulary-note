@@ -1,8 +1,16 @@
 import styled from "styled-components";
 
 export const ExamStartContainer = styled.div`
-	margin-top: 140px;
+	padding-top: 80px;
 	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 80vh;
+`;
+
+export const InnerContainer = styled.div`
+	width: 100%;
 `;
 
 export const Title = styled.h1`

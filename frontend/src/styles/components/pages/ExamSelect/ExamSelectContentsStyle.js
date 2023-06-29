@@ -1,8 +1,16 @@
 import styled from "styled-components";
 
 export const ExamSelectContainer = styled.div`
-	margin-top: 140px;
+	padding-top: 80px;
 	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 80vh;
+`;
+
+export const InnerContainer = styled.div`
+	width: 100%;
 `;
 
 export const Title = styled.h1`
@@ -10,6 +18,7 @@ export const Title = styled.h1`
 
 	@media (max-width: 520px) {
 		font-size: 1.6rem;
+		margin-top: 60px;
 	}
 `;
 
@@ -17,9 +26,12 @@ export const SelectButtonContainer = styled.div`
 	margin-top: 40px;
 	padding: 0 20%;
 
-	@media (max-width: 520px) {
-		margin-top: 30px;
+	@media screen and (max-width: 960px) {
 		padding: 0 10%;
+
+		@media (max-width: 520px) {
+			margin-top: 30px;
+		}
 	}
 
 	a {
