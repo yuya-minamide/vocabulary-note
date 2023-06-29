@@ -1,8 +1,15 @@
 import styled from "styled-components";
 
 export const ExamContainer = styled.div`
-	margin-top: 90px;
 	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 80vh;
+`;
+
+export const InnerContainer = styled.div`
+	width: 100%;
 `;
 
 export const Title = styled.h1`
@@ -20,8 +27,14 @@ export const ContentsContainer = styled.div`
 	margin: 60px auto 0 auto;
 	padding: 50px 10px;
 
-	@media screen and (max-width: 520px) {
-		width: 100%;
+	@media screen and (max-width: 960px) {
+		width: 80%;
+		padding: 100px 10px;
+
+		@media screen and (max-width: 520px) {
+			width: 100%;
+			padding: 50px 10px;
+		}
 	}
 `;
 

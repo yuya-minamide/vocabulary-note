@@ -6,6 +6,7 @@ import {
 	ExamStartContainer,
 	ExplainButtonContainer,
 	ExplainContainer,
+	InnerContainer,
 	StartButtonContainer,
 	Title,
 } from "../../../styles/components/pages/ExamStart/ExamStartContentsStyle";
@@ -76,17 +77,19 @@ export function ExamStartContents() {
 
 	return (
 		<ExamStartContainer>
-			<Title>{capitalizedButtonName}</Title>
-			<StartButtonContainer>
-				<button onClick={handleStart}>Start</button>
-			</StartButtonContainer>
-			<ExplainContainer>
-				<p>After clicking START button, you just click I know or I don’t know button</p>
-				<ExplainButtonContainer>
-					<div>I know</div>
-					<div>I don't know</div>
-				</ExplainButtonContainer>
-			</ExplainContainer>
+			<InnerContainer>
+				<Title>{capitalizedButtonName}</Title>
+				<StartButtonContainer>
+					<button onClick={handleStart}>Start</button>
+				</StartButtonContainer>
+				<ExplainContainer>
+					<p>After clicking START button, you just click I know or I don’t know button</p>
+					<ExplainButtonContainer>
+						<div>I know</div>
+						<div>I don't know</div>
+					</ExplainButtonContainer>
+				</ExplainContainer>
+			</InnerContainer>
 		</ExamStartContainer>
 	);
 }

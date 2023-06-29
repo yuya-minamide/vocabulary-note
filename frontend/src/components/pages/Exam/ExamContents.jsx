@@ -8,6 +8,7 @@ import {
 	AnswerButtonContainer,
 	ContentsContainer,
 	ExamContainer,
+	InnerContainer,
 	QuestionNumber,
 	Sentence,
 	Title,
@@ -108,7 +109,7 @@ export function ExamContents({ examWord }) {
 	return (
 		<ExamContainer>
 			<Toaster position="top-center" />
-			<div>
+			<InnerContainer>
 				<Title>{capitalizedButtonName}</Title>
 				<QuestionNumber>
 					{currentQuestionNumber + 1} / {totalQuestionNumber}
@@ -124,7 +125,7 @@ export function ExamContents({ examWord }) {
 						<button onClick={() => handleNextQuestion("iDoNotKnow")}>I don't know</button>
 					</AnswerButtonContainer>
 				</ContentsContainer>
-			</div>
+			</InnerContainer>
 		</ExamContainer>
 	);
 }
